@@ -25,83 +25,106 @@ const REGION_COLORS = {
   ME: "#C2410C",
   AF: "#15803D",
   EA: "#B91C1C",
+  SA: "#9333EA",
   SE: "#0F766E",
-  NA: "#6D28D9",
+  NA: "#4338CA",
   LA: "#A16207",
   OC: "#0369A1",
   WS: "#334155",
 };
 
 const REGIONS = [
-  { key: "EU", name: "EUROPE", count: 6 },
-  { key: "ME", name: "MIDDLE EAST", count: 4 },
-  { key: "AF", name: "AFRICA", count: 3 },
-  { key: "EA", name: "EAST ASIA", count: 5 },
-  { key: "SE", name: "SOUTH & SE ASIA", count: 5 },
-  { key: "NA", name: "N. AMERICA", count: 3 },
-  { key: "LA", name: "LATIN AMERICA", count: 4 },
-  { key: "OC", name: "OCEANIA", count: 3 },
-  { key: "WS", name: "WORLD & SPACE", count: 3 },
+  { key: "EU", name: "EUROPE", short: "Europe", count: 6 },
+  { key: "ME", name: "MID. EAST", short: "Mid. East", count: 5 },
+  { key: "AF", name: "AFRICA", short: "Africa", count: 4 },
+  { key: "EA", name: "E. ASIA", short: "East Asia", count: 4 },
+  { key: "SA", name: "S. ASIA", short: "South Asia", count: 3 },
+  { key: "SE", name: "SE ASIA", short: "SE Asia", count: 4 },
+  { key: "NA", name: "N. AMERICA", short: "N. America", count: 4 },
+  { key: "LA", name: "LAT. AMER.", short: "Lat. Amer.", count: 3 },
+  { key: "OC", name: "OCEANIA", short: "Oceania", count: 2 },
+  { key: "WS", name: "WORLD/SPACE", short: "World/Space", count: 3 },
 ];
 
 const UTC_TIMELINE = [
-  { time: "~01:00", label: "Hanoi gas blast" },
   { time: "02:30", label: "Villavicencio bomb" },
-  { time: "05:30", label: "TAIEX closes +8.99%" },
-  { time: "~06:50", label: "Sanofi $41bn deal" },
-  { time: "~13:00", label: "EU €200bn tax gap" },
-  { time: "~19:30", label: "Huawei 10/12 verdict" },
+  { time: "05:30", label: "TAIEX +8.99%" },
+  { time: "~06:50", label: "Sanofi $41bn" },
+  { time: "~11:00", label: "EU 350k hybrid" },
+  { time: "~15:00", label: "Sarkozy 2027 trial" },
+  { time: "~19:30", label: "Huawei 10/12" },
+  { time: "21:00", label: "Dow 50,019" },
 ];
 
 const KEY_NUMBERS = [
   { val: "$41bn", lbl: "Sanofi–Insmed cash deal", c: REGION_COLORS.NA },
+  { val: "50,019", lbl: "Dow milestone close", c: REGION_COLORS.NA },
   { val: "5,258", lbl: "England heat deaths", c: REGION_COLORS.EU },
   { val: "10 / 12", lbl: "Huawei guilty counts", c: REGION_COLORS.NA },
-  { val: "+8.99%", lbl: "Taiwan TAIEX jump", c: REGION_COLORS.EA },
   { val: "47,000", lbl: "UN 2025 femicides", c: REGION_COLORS.WS },
-  { val: "6,500+", lbl: "Rohingya return plan", c: REGION_COLORS.SE },
+  { val: "6,800", lbl: "Rohingya return plan", c: REGION_COLORS.SE },
 ];
 
 function svgLead1() {
   return `<svg viewBox="0 0 320 100" width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#F5DFC8"/><stop offset="100%" stop-color="#FBEFE4"/>
+        <stop offset="0%" stop-color="#EFC8A8"/><stop offset="68%" stop-color="#FBECE0"/><stop offset="100%" stop-color="#F6DEC8"/>
+      </linearGradient>
+      <linearGradient id="riv1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1E3A54"/><stop offset="100%" stop-color="#102538"/>
       </linearGradient>
     </defs>
     <rect width="320" height="100" fill="url(#sky1)"/>
-    <!-- Sun halo -->
-    <circle cx="98" cy="34" r="22" fill="#E89D72" opacity="0.45"/>
-    <!-- Lujiazui skyline -->
-    <rect x="8" y="54" width="16" height="32" fill="#334155"/>
-    <rect x="27" y="42" width="18" height="44" fill="#1E293B"/>
-    <rect x="48" y="34" width="14" height="52" fill="#475569"/>
-    <!-- Jin Mao & Shanghai Tower -->
-    <polygon points="84,86 89,22 97,22 102,86" fill="#1E293B"/>
-    <path d="M107,86 L112,14 L120,14 L124,86 Z" fill="#0F172A"/>
-    <!-- Oriental Pearl Tower -->
-    <line x1="70" y1="86" x2="70" y2="10" stroke="#334155" stroke-width="2.5"/>
-    <line x1="62" y1="86" x2="70" y2="54" stroke="#334155" stroke-width="2.5"/>
-    <line x1="78" y1="86" x2="70" y2="54" stroke="#334155" stroke-width="2.5"/>
-    <circle cx="70" cy="30" r="5" fill="#B91C1C"/>
-    <circle cx="70" cy="54" r="8" fill="#B91C1C"/>
-    <rect x="129" y="46" width="16" height="40" fill="#334155"/>
-    <!-- Huangpu river -->
-    <rect x="0" y="84" width="320" height="16" fill="#2A4A62"/>
-    <line x1="18" y1="90" x2="96" y2="90" stroke="#7BA4BF" stroke-width="1.4"/>
-    <line x1="60" y1="95" x2="145" y2="95" stroke="#E2B49A" stroke-width="1.2"/>
-    <!-- Crimson inquiry seal + pillar silhouette right -->
-    <g transform="translate(160,50)">
-      <rect x="0" y="14" width="148" height="14" fill="#991B1B" opacity="0.16"/>
-      <circle cx="132" cy="12" r="14" fill="#991B1B"/>
-      <rect x="125" y="5" width="14" height="14" fill="none" stroke="#FDE68A" stroke-width="1.4"/>
-      <text x="132" y="15" text-anchor="middle" font-family="Georgia, serif" font-size="8" font-weight="700" fill="#FDE68A">CCDI</text>
+    <!-- Warm sunset disc & haze -->
+    <circle cx="146" cy="48" r="30" fill="#E98E62" opacity="0.38"/>
+    <circle cx="146" cy="48" r="18" fill="#FDE68A" opacity="0.45"/>
+    <!-- Distant skyline haze -->
+    <g fill="#7C5E58" opacity="0.32">
+      <rect x="0" y="54" width="22" height="28"/>
+      <rect x="195" y="48" width="20" height="34"/>
+      <rect x="220" y="56" width="24" height="26"/>
+      <rect x="282" y="52" width="38" height="30"/>
     </g>
-    <!-- Crisp banner block -->
-    <rect x="158" y="10" width="152" height="26" rx="2" fill="#7F1D1D"/>
-    <text x="234" y="27" text-anchor="middle" font-family="Arial, sans-serif" font-size="13.5" font-weight="800" fill="#FFFFFF" letter-spacing="0.5">POLITBURO PROBE</text>
-    <rect x="158" y="39" width="114" height="16" rx="2" fill="#D97706"/>
-    <text x="215" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.6" font-weight="700" fill="#11100D">24-SEAT ELITE BODY</text>
+    <!-- Foreground Bund & Lujiazui panorama -->
+    <rect x="6" y="56" width="26" height="26" fill="#334155"/>
+    <path d="M12,56 Q19,44 26,56 Z" fill="#1E293B"/>
+    <rect x="36" y="44" width="16" height="38" fill="#1E293B"/>
+    <rect x="56" y="38" width="14" height="44" fill="#334155"/>
+    <!-- Oriental Pearl Tower -->
+    <line x1="88" y1="82" x2="88" y2="7" stroke="#1E293B" stroke-width="2.4"/>
+    <line x1="78" y1="82" x2="88" y2="54" stroke="#1E293B" stroke-width="2.4"/>
+    <line x1="98" y1="82" x2="88" y2="54" stroke="#1E293B" stroke-width="2.4"/>
+    <circle cx="88" cy="27" r="5.5" fill="#B91C1C" stroke="#7F1D1D" stroke-width="0.8"/>
+    <circle cx="88" cy="52" r="8.5" fill="#B91C1C" stroke="#7F1D1D" stroke-width="0.8"/>
+    <circle cx="85.5" cy="49.5" r="2" fill="#FCA5A5" opacity="0.7"/>
+    <!-- Jin Mao & Shanghai World Financial Center & Shanghai Tower -->
+    <polygon points="108,82 113,22 121,22 126,82" fill="#1E293B"/>
+    <path d="M132,82 L136,12 L146,12 L150,82 Z" fill="#0F172A"/>
+    <line x1="138" y1="22" x2="144" y2="22" stroke="#F59E0B" stroke-width="1" opacity="0.6"/>
+    <line x1="137" y1="36" x2="145" y2="36" stroke="#F59E0B" stroke-width="1" opacity="0.6"/>
+    <line x1="136" y1="50" x2="146" y2="50" stroke="#F59E0B" stroke-width="1" opacity="0.6"/>
+    <path d="M156,82 L160,18 L174,18 L178,82 Z" fill="#334155"/>
+    <rect x="163" y="23" width="8" height="7" fill="#FBECE0"/>
+    <rect x="184" y="42" width="16" height="40" fill="#1E293B"/>
+    <!-- Official CCDI Dossier & Crimson Seal right foreground -->
+    <g transform="translate(226,40)">
+      <rect x="0" y="4" width="82" height="38" rx="2" fill="#FFFDF8" stroke="#991B1B" stroke-width="1.2"/>
+      <line x1="8" y1="14" x2="48" y2="14" stroke="#94A3B8" stroke-width="1.8"/>
+      <line x1="8" y1="21" x2="44" y2="21" stroke="#CBD5E1" stroke-width="1.6"/>
+      <line x1="8" y1="28" x2="40" y2="28" stroke="#CBD5E1" stroke-width="1.6"/>
+      <circle cx="64" cy="23" r="13" fill="#991B1B"/>
+      <rect x="57" y="16" width="14" height="14" fill="none" stroke="#FDE68A" stroke-width="1.2"/>
+      <text x="64" y="25.5" text-anchor="middle" font-family="Georgia, serif" font-size="7.2" font-weight="800" fill="#FDE68A">CCDI</text>
+    </g>
+    <!-- Huangpu river with warm reflections -->
+    <rect x="0" y="81" width="320" height="19" fill="url(#riv1)"/>
+    <line x1="20" y1="87" x2="108" y2="87" stroke="#F59E0B" stroke-width="1.3" opacity="0.6"/>
+    <line x1="76" y1="92" x2="178" y2="92" stroke="#FCA5A5" stroke-width="1.2" opacity="0.5"/>
+    <line x1="150" y1="96" x2="260" y2="96" stroke="#7BA4BF" stroke-width="1.1" opacity="0.5"/>
+    <!-- Compact editorial corner ribbon -->
+    <rect x="184" y="7" width="128" height="22" rx="2" fill="#7F1D1D"/>
+    <text x="248" y="21.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10.3" font-weight="800" fill="#FFFFFF" letter-spacing="0.4">POLITBURO PROBE</text>
   </svg>`;
 }
 
@@ -109,98 +132,134 @@ function svgLead2() {
   return `<svg viewBox="0 0 320 100" width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="navy2" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#0F1F3D"/><stop offset="100%" stop-color="#1E3A6E"/>
+        <stop offset="0%" stop-color="#0C1B33"/><stop offset="100%" stop-color="#1B3660"/>
       </linearGradient>
     </defs>
     <rect width="320" height="100" fill="url(#navy2)"/>
-    <!-- Classical Courthouse on left -->
-    <polygon points="14,32 56,12 98,32" fill="#E2E8F0"/>
-    <rect x="16" y="32" width="80" height="5" fill="#CBD5E1"/>
-    <rect x="21" y="37" width="8" height="44" fill="#F1F5F9"/>
-    <rect x="37" y="37" width="8" height="44" fill="#F1F5F9"/>
-    <rect x="53" y="37" width="8" height="44" fill="#F1F5F9"/>
-    <rect x="69" y="37" width="8" height="44" fill="#F1F5F9"/>
-    <rect x="84" y="37" width="8" height="44" fill="#F1F5F9"/>
-    <rect x="10" y="81" width="92" height="7" fill="#94A3B8"/>
-    <!-- Silicon chip motif bottom center -->
-    <g transform="translate(107,50)">
-      <line x1="-6" y1="10" x2="36" y2="10" stroke="#F59E0B" stroke-width="1.6"/>
-      <line x1="-6" y1="18" x2="36" y2="18" stroke="#F59E0B" stroke-width="1.6"/>
-      <line x1="-6" y1="26" x2="36" y2="26" stroke="#F59E0B" stroke-width="1.6"/>
-      <rect x="2" y="3" width="26" height="30" rx="2" fill="#1E293B" stroke="#F59E0B" stroke-width="1.8"/>
-      <rect x="9" y="10" width="12" height="16" fill="#F59E0B" opacity="0.85"/>
+    <!-- Subtle full-width silicon trace backdrop -->
+    <g stroke="#3B82F6" stroke-width="1" fill="none" opacity="0.25">
+      <polyline points="118,16 150,16 162,28 210,28"/>
+      <polyline points="122,44 148,44 156,52 195,52"/>
+      <polyline points="240,76 286,76 296,66 320,66"/>
+      <circle cx="150" cy="16" r="2.2" fill="#3B82F6"/>
+      <circle cx="296" cy="66" r="2.2" fill="#3B82F6"/>
     </g>
-    <!-- 10 of 12 verdict callout -->
-    <rect x="156" y="10" width="154" height="27" rx="2" fill="#F59E0B"/>
-    <text x="233" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="800" fill="#0F172A">10 OF 12 COUNTS</text>
-    <!-- 12 Jury Count Squares -->
-    <g transform="translate(156,45)">
+    <!-- Classical Brooklyn Federal Courthouse -->
+    <polygon points="10,33 58,9 106,33" fill="#E2E8F0" stroke="#94A3B8" stroke-width="0.8"/>
+    <circle cx="58" cy="24" r="4" fill="#F59E0B"/>
+    <rect x="13" y="33" width="90" height="5" fill="#CBD5E1"/>
+    <rect x="18" y="38" width="9" height="44" fill="#F8FAFC"/>
+    <rect x="35" y="38" width="9" height="44" fill="#F8FAFC"/>
+    <rect x="53" y="38" width="9" height="44" fill="#F8FAFC"/>
+    <rect x="71" y="38" width="9" height="44" fill="#F8FAFC"/>
+    <rect x="88" y="38" width="9" height="44" fill="#F8FAFC"/>
+    <rect x="8" y="82" width="100" height="6" fill="#94A3B8"/>
+    <rect x="4" y="88" width="108" height="6" fill="#64748B"/>
+    <!-- Grounded Judge Bench & Gavel center -->
+    <g transform="translate(110,48)">
+      <rect x="0" y="34" width="52" height="18" fill="#78350F" stroke="#451A03" stroke-width="1"/>
+      <rect x="4" y="38" width="44" height="10" fill="#92400E" stroke="#F59E0B" stroke-width="0.7"/>
+      <text x="26" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="5.2" font-weight="800" fill="#FDE68A">EDNY COURT</text>
+      <rect x="8" y="29" width="36" height="5" rx="1" fill="#B45309" stroke="#451A03" stroke-width="0.8"/>
+      <line x1="12" y1="29" x2="40" y2="9" stroke="#D97706" stroke-width="3.6" stroke-linecap="round"/>
+      <rect x="26" y="-1" width="18" height="10" rx="2" fill="#F59E0B" stroke="#78350F" stroke-width="0.9" transform="rotate(-34 35 4)"/>
+    </g>
+    <!-- Compact Verdict Strip + 12 Jury Count Lights -->
+    <rect x="172" y="10" width="138" height="24" rx="2" fill="#F59E0B"/>
+    <text x="241" y="26" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="800" fill="#0F172A">10 OF 12 GUILTY</text>
+    <g transform="translate(172,42)">
       ${Array.from({ length: 12 }, (_, i) => {
         const fill = i < 10 ? "#EF4444" : "#475569";
-        return `<rect x="${i * 12.9}" y="0" width="10.5" height="14" rx="1.5" fill="${fill}" stroke="#F8FAFC" stroke-width="0.7"/>`;
+        return `<rect x="${i * 11.6}" y="0" width="9.5" height="16" rx="1.5" fill="${fill}" stroke="#F8FAFC" stroke-width="0.7"/>`;
       }).join("")}
     </g>
-    <rect x="156" y="67" width="154" height="19" rx="2" fill="#0B162C" stroke="#3B82F6" stroke-width="1"/>
-    <text x="233" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="9.5" font-weight="700" fill="#93C5FD">GUILTY: FRAUD · NO RICO</text>
+    <text x="241" y="72" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.6" font-weight="800" fill="#93C5FD" letter-spacing="0.4">FRAUD &amp; TRADE SECRETS</text>
+    <text x="241" y="84" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.8" font-weight="700" fill="#CBD5E1">ACQUITTED OF RACKETEERING</text>
   </svg>`;
 }
 
 function svgLead3() {
   return `<svg viewBox="0 0 320 100" width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <linearGradient id="mint3" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#E1F4EF"/><stop offset="100%" stop-color="#C6E8DF"/>
+      <linearGradient id="lab3" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#DCF2EC"/><stop offset="100%" stop-color="#F2FAF7"/>
       </linearGradient>
     </defs>
-    <rect width="320" height="100" fill="url(#mint3)"/>
-    <!-- Molecular hex lattice + medical capsule -->
-    <g stroke="#0F766E" stroke-width="2" fill="none">
-      <polygon points="34,16 50,25 50,43 34,52 18,43 18,25" fill="#FFFDF8" opacity="0.85"/>
-      <polygon points="66,34 82,43 82,61 66,70 50,61 50,43" fill="#FFFDF8" opacity="0.85"/>
-      <circle cx="34" cy="34" r="5" fill="#0F766E"/>
-      <circle cx="66" cy="52" r="5" fill="#1D4ED8"/>
+    <rect width="320" height="100" fill="url(#lab3)"/>
+    <!-- Lab shelf & labeled vials left-top -->
+    <line x1="8" y1="32" x2="120" y2="32" stroke="#1E293B" stroke-width="1.4"/>
+    <g stroke="#1E293B" stroke-width="0.9">
+      <rect x="14" y="13" width="18" height="19" rx="2" fill="#FFFFFF"/>
+      <rect x="17" y="9" width="12" height="4" fill="#0F766E"/>
+      <rect x="16" y="19" width="14" height="8" fill="#1D4ED8"/>
+      <rect x="38" y="15" width="16" height="17" rx="2" fill="#FFFFFF"/>
+      <rect x="41" y="11" width="10" height="4" fill="#E11D48"/>
+      <rect x="40" y="20" width="12" height="8" fill="#0D9488"/>
+      <rect x="60" y="11" width="20" height="21" rx="2" fill="#FFFDF8"/>
+      <rect x="64" y="7" width="12" height="4" fill="#334155"/>
+      <rect x="62" y="18" width="16" height="9" fill="#F59E0B"/>
     </g>
-    <!-- Bicolor capsule -->
-    <g transform="translate(18,70) rotate(-14)">
-      <rect x="0" y="0" width="44" height="16" rx="8" fill="#0F766E"/>
-      <path d="M22,0 H36 A8,8 0 0 1 36,16 H22 Z" fill="#E11D48"/>
+    <!-- Lab bench line -->
+    <rect x="0" y="82" width="320" height="18" fill="#B8DED4"/>
+    <line x1="0" y1="82" x2="320" y2="82" stroke="#1E293B" stroke-width="1.2"/>
+    <!-- Biotech flasks & lung-drug Ligne Claire scene -->
+    <g stroke="#1E293B" stroke-width="1.2" fill="none">
+      <path d="M18,82 L27,48 V37 H35 V48 L44,82 Z" fill="#FFFFFF"/>
+      <path d="M21,69 L41,69 L44,82 L18,82 Z" fill="#0D9488" stroke="none"/>
+      <circle cx="31" cy="60" r="2.2" fill="#99F6E4" stroke="none"/>
+      <circle cx="35" cy="54" r="1.8" fill="#5EEAD4" stroke="none"/>
     </g>
-    <!-- Rising 3-yr Pharma M&A bars -->
-    <g transform="translate(96,24)">
-      <rect x="0" y="42" width="16" height="24" fill="#64748B"/>
-      <rect x="22" y="30" width="16" height="36" fill="#0284C7"/>
-      <rect x="44" y="6" width="18" height="60" fill="#0F766E"/>
-      <text x="8" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.5" font-weight="700" fill="#334155">'24</text>
-      <text x="30" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.5" font-weight="700" fill="#334155">'25</text>
-      <text x="53" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.5" font-weight="700" fill="#065F46">'26</text>
+    <!-- Stylized geometric lungs + capsule with crisp ink lines -->
+    <g transform="translate(58,36)">
+      <line x1="24" y1="0" x2="24" y2="18" stroke="#1E293B" stroke-width="2.6"/>
+      <path d="M22,12 C10,12 6,26 8,36 C10,43 18,43 22,36 Z" fill="#0F766E" stroke="#1E293B" stroke-width="1"/>
+      <path d="M26,12 C38,12 42,26 40,36 C38,43 30,43 26,36 Z" fill="#0D9488" stroke="#1E293B" stroke-width="1"/>
+      <g transform="translate(8,33) rotate(-10)">
+        <rect x="0" y="0" width="34" height="11" rx="5.5" fill="#1D4ED8" stroke="#1E293B" stroke-width="1"/>
+        <path d="M17,0 H28.5 A5.5,5.5 0 0 1 28.5,11 H17 Z" fill="#E11D48" stroke="#1E293B" stroke-width="1"/>
+      </g>
     </g>
-    <!-- Bold Teal M&A Callout -->
-    <rect x="170" y="10" width="140" height="28" rx="2" fill="#065F46"/>
-    <text x="240" y="29" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="800" fill="#FFFFFF">$41 BILLION</text>
-    <rect x="170" y="42" width="140" height="19" rx="2" fill="#F59E0B"/>
-    <text x="240" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="9.5" font-weight="800" fill="#11100D">$175 / SHARE · ALL-CASH</text>
-    <text x="240" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.6" font-weight="700" fill="#0F766E">SANOFI BUYS INSMED</text>
-    <text x="240" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.8" font-weight="600" fill="#334155">LARGEST PHARMA DEAL IN 3 YRS</text>
+    <!-- Rising 3-year Pharma M&A towers with crisp outlines -->
+    <g transform="translate(132,16)">
+      <rect x="0" y="44" width="17" height="22" fill="#94A3B8" stroke="#1E293B" stroke-width="0.9"/>
+      <rect x="23" y="30" width="17" height="36" fill="#0284C7" stroke="#1E293B" stroke-width="0.9"/>
+      <rect x="46" y="4" width="20" height="62" fill="#065F46" stroke="#1E293B" stroke-width="0.9"/>
+      <text x="8.5" y="77" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.6" font-weight="800" fill="#334155">'24</text>
+      <text x="31.5" y="77" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.6" font-weight="800" fill="#334155">'25</text>
+      <text x="56" y="77" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.6" font-weight="800" fill="#065F46">'26</text>
+    </g>
+    <!-- Compact high-impact deal callout -->
+    <rect x="212" y="10" width="100" height="24" rx="2" fill="#065F46"/>
+    <text x="262" y="26.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="13.5" font-weight="800" fill="#FFFFFF">$41BN CASH</text>
+    <rect x="212" y="38" width="100" height="16" rx="2" fill="#F59E0B"/>
+    <text x="262" y="49" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.6" font-weight="800" fill="#11100D">$175 / SHARE</text>
+    <text x="262" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.2" font-weight="800" fill="#065F46">SANOFI → INSMED</text>
+    <text x="262" y="93" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.4" font-weight="700" fill="#1E293B">TOP PHARMA M&amp;A IN 3 YRS</text>
   </svg>`;
 }
 
 function svgFeature4() {
   return `<svg viewBox="0 0 240 58" width="100%" height="58" xmlns="http://www.w3.org/2000/svg">
-    <rect width="240" height="58" fill="#DDE6F2"/>
-    <rect x="0" y="0" width="96" height="58" fill="#C7D6EA"/>
-    <rect x="96" y="0" width="144" height="58" fill="#EFE4CF"/>
-    <line x1="96" y1="0" x2="96" y2="58" stroke="#B91C1C" stroke-width="2" stroke-dasharray="4,2"/>
-    <!-- Radar arcs left -->
-    <path d="M22,52 A28,28 0 0 1 78,52" fill="none" stroke="#1D4ED8" stroke-width="1.6"/>
-    <path d="M34,52 A16,16 0 0 1 66,52" fill="none" stroke="#1D4ED8" stroke-width="1.6"/>
-    <!-- Drone path crossing 20km border -->
-    <path d="M126,28 Q84,12 66,24 Q84,36 126,34" fill="none" stroke="#1E293B" stroke-width="1.6" stroke-dasharray="2.5,2"/>
-    <polygon points="56,24 68,19 65,24 68,29" fill="#111827"/>
-    <!-- Strike starburst -->
-    <polygon points="122,33 126,25 130,33 137,31 131,37 135,45 128,41 122,47 122,39 115,37" fill="#DC2626"/>
-    <text x="16" y="13" font-family="Arial, sans-serif" font-size="7.5" font-weight="800" fill="#1E3A8A">POLAND · 20 KM</text>
-    <rect x="140" y="6" width="94" height="19" rx="2" fill="#991B1B"/>
-    <text x="187" y="19" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.4" font-weight="800" fill="#FFFFFF">2 DEAD · 40+ HURT</text>
+    <rect width="240" height="58" fill="#ECE2CC"/>
+    <path d="M0,0 H102 L94,24 L106,58 H0 Z" fill="#C7D7EA"/>
+    <!-- Border line -->
+    <path d="M102,0 L94,24 L106,58" fill="none" stroke="#B91C1C" stroke-width="2" stroke-dasharray="4,2"/>
+    <!-- Concentric green NATO radar sweeps -->
+    <g fill="none" stroke="#047857" stroke-width="1.3">
+      <path d="M18,54 A34,34 0 0 1 86,54" opacity="0.65"/>
+      <path d="M30,54 A22,22 0 0 1 74,54" opacity="0.85"/>
+      <path d="M42,54 A10,10 0 0 1 62,54"/>
+    </g>
+    <!-- Drone crossing 20km in and curving back -->
+    <path d="M150,34 Q96,10 66,24 Q90,39 144,41" fill="none" stroke="#0F172A" stroke-width="1.5" stroke-dasharray="2.5,2"/>
+    <polygon points="55,24 69,18 65,24 69,30" fill="#111827"/>
+    <!-- Zaporizhzhia strike starburst + smoke (cleanly above label) -->
+    <circle cx="164" cy="31" r="9.5" fill="#F97316" opacity="0.35"/>
+    <polygon points="164,21 167.5,28 175,26.5 169.5,32 173,39.5 166,36 160.5,41.5 160.5,34 153,32 160.5,28.5" fill="#DC2626"/>
+    <text x="10" y="13" font-family="Arial, sans-serif" font-size="7.4" font-weight="800" fill="#1E3A8A">POLAND · 20 KM IN</text>
+    <text x="164" y="54.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="6.8" font-weight="800" fill="#7F1D1D">ZAPORIZHZHIA</text>
+    <rect x="148" y="5" width="87" height="17" rx="2" fill="#991B1B"/>
+    <text x="191.5" y="16.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.2" font-weight="800" fill="#FFFFFF">2 DEAD · 40+ HURT</text>
   </svg>`;
 }
 
@@ -208,121 +267,165 @@ function svgFeature5() {
   return `<svg viewBox="0 0 240 58" width="100%" height="58" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="heat5" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#FDE2D2"/><stop offset="100%" stop-color="#F9C5AD"/>
+        <stop offset="0%" stop-color="#F9A882"/><stop offset="72%" stop-color="#FDE3C8"/><stop offset="100%" stop-color="#E56B4E"/>
       </linearGradient>
     </defs>
     <rect width="240" height="58" fill="url(#heat5)"/>
-    <!-- Blazing sun -->
-    <circle cx="34" cy="24" r="15" fill="#DC2626"/>
-    <circle cx="34" cy="24" r="10" fill="#F59E0B"/>
-    <!-- London skyline silhouette -->
-    <rect x="12" y="42" width="10" height="16" fill="#1E293B"/>
-    <rect x="26" y="34" width="7" height="24" fill="#0F172A"/>
-    <polygon points="26,34 29.5,23 33,34" fill="#0F172A"/>
-    <polygon points="44,58 49,26 54,58" fill="#334155"/>
-    <!-- Rising heat bars -->
-    <rect x="74" y="42" width="9" height="16" fill="#F59E0B"/>
-    <rect x="86" y="35" width="9" height="23" fill="#EA580C"/>
-    <rect x="98" y="26" width="9" height="32" fill="#DC2626"/>
-    <rect x="110" y="16" width="9" height="42" fill="#991B1B"/>
-    <!-- Big callout -->
-    <rect x="132" y="8" width="100" height="24" rx="2" fill="#991B1B"/>
-    <text x="182" y="24.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="11.5" font-weight="800" fill="#FFFFFF">5,258 DEATHS</text>
-    <rect x="132" y="35" width="100" height="15" rx="2" fill="#F59E0B"/>
-    <text x="182" y="45.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="800" fill="#11100D">UK RECORD SUMMER</text>
+    <!-- Scorching summer sun & heat rings -->
+    <circle cx="48" cy="24" r="22" fill="#DC2626" opacity="0.24"/>
+    <circle cx="48" cy="24" r="14" fill="#DC2626"/>
+    <circle cx="48" cy="24" r="9" fill="#FACC15"/>
+    <!-- Full-width London skyline (Big Ben, London Eye, St Paul's, Shard) -->
+    <g fill="#1E293B">
+      <rect x="10" y="34" width="8" height="16"/>
+      <polygon points="10,34 14,19 18,34"/>
+      <rect x="20" y="40" width="24" height="10"/>
+      <circle cx="62" cy="36" r="10" fill="none" stroke="#1E293B" stroke-width="1.6"/>
+      <path d="M84,50 Q94,32 104,50 Z"/>
+      <polygon points="116,50 122,14 128,50"/>
+    </g>
+    <!-- Rising mortality bars right (cleanly below badge) -->
+    <rect x="148" y="42" width="11" height="8" fill="#F59E0B" opacity="0.9"/>
+    <rect x="163" y="37" width="11" height="13" fill="#EA580C" opacity="0.95"/>
+    <rect x="178" y="31" width="11" height="19" fill="#DC2626"/>
+    <rect x="193" y="25" width="12" height="25" fill="#7F1D1D"/>
+    <!-- Thames river -->
+    <rect x="0" y="50" width="240" height="8" fill="#9A3412" opacity="0.65"/>
+    <!-- Compact badge -->
+    <rect x="142" y="4" width="93" height="18" rx="2" fill="#7F1D1D"/>
+    <text x="188.5" y="16.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="9.6" font-weight="800" fill="#FFFFFF">5,258 DEATHS</text>
   </svg>`;
 }
 
 function svgFeature6() {
   return `<svg viewBox="0 0 240 58" width="100%" height="58" xmlns="http://www.w3.org/2000/svg">
-    <rect width="240" height="58" fill="#1E4E79"/>
-    <!-- Coastlines top (Iran) & bottom (Oman) -->
-    <path d="M0,0 H240 V12 Q180,20 120,10 Q60,18 0,10 Z" fill="#D6BA8A"/>
-    <path d="M0,58 V46 Q70,40 130,50 Q185,42 240,48 V58 Z" fill="#C7A672"/>
-    <!-- 2 Tankers & flame -->
-    <g transform="translate(18,23)">
-      <polygon points="0,12 46,12 42,19 4,19" fill="#0F172A"/>
-      <rect x="10" y="7" width="10" height="5" fill="#334155"/>
-      <path d="M26,12 Q30,0 35,8 Q38,2 40,12 Z" fill="#F97316"/>
-      <circle cx="34" cy="2" r="3" fill="#475569" opacity="0.7"/>
+    <rect width="240" height="58" fill="#184C78"/>
+    <!-- Wave lines -->
+    <path d="M0,26 Q25,23 50,26 T100,26 T150,26 T200,26 T240,26" fill="none" stroke="#3B82B6" stroke-width="1"/>
+    <!-- Iranian mainland north & Omani peninsula south -->
+    <path d="M0,0 H240 V12 Q175,20 120,11 Q55,18 0,11 Z" fill="#D4B888" stroke="#9B8258" stroke-width="0.7"/>
+    <path d="M0,58 V47 Q55,44 108,39 Q138,44 166,52 L240,48 V58 Z" fill="#C4A470" stroke="#8C734B" stroke-width="0.7"/>
+    <text x="14" y="9" font-family="Arial, sans-serif" font-size="6.5" font-weight="800" fill="#574326">IRAN</text>
+    <text x="106" y="54.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="6.5" font-weight="800" fill="#4A381F">OMAN</text>
+    <!-- Three oil tankers ablaze -->
+    <g transform="translate(14,22)">
+      <polygon points="0,10 42,10 38,16 4,16" fill="#0F172A"/>
+      <rect x="8" y="6" width="9" height="4" fill="#475569"/>
+      <path d="M22,10 Q26,-1 30,6 Q33,1 35,10 Z" fill="#F97316"/>
+      <circle cx="30" cy="2" r="4" fill="#334155" opacity="0.6"/>
     </g>
-    <g transform="translate(76,27)">
+    <g transform="translate(76,20)">
       <polygon points="0,10 40,10 36,16 4,16" fill="#0F172A"/>
-      <path d="M18,10 Q22,0 26,6 Q28,2 30,10 Z" fill="#EF4444"/>
+      <path d="M16,10 Q20,0 24,6 Q27,2 29,10 Z" fill="#EF4444"/>
+      <circle cx="23" cy="2" r="3.5" fill="#334155" opacity="0.6"/>
     </g>
-    <!-- Naval mine -->
-    <circle cx="132" cy="34" r="4.5" fill="#111827" stroke="#FBBF24" stroke-width="1"/>
-    <!-- Badge -->
-    <rect x="142" y="11" width="92" height="21" rx="2" fill="#C2410C"/>
-    <text x="188" y="24.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.6" font-weight="800" fill="#FFFFFF">3 TANKERS CLAIM</text>
-    <rect x="142" y="35" width="92" height="14" rx="2" fill="#0F172A" opacity="0.9"/>
-    <text x="188" y="44.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.3" font-weight="700" fill="#FDE68A">STRAIT OF HORMUZ</text>
+    <g transform="translate(138,31)">
+      <polygon points="0,8 36,8 32,14 4,14" fill="#0F172A"/>
+      <path d="M15,8 Q19,0 23,8 Z" fill="#F59E0B"/>
+    </g>
+    <!-- Floating naval mine -->
+    <circle cx="126" cy="34" r="4" fill="#111827" stroke="#FBBF24" stroke-width="1"/>
+    <rect x="142" y="5" width="93" height="17" rx="2" fill="#C2410C"/>
+    <text x="188.5" y="16.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.4" font-weight="800" fill="#FFFFFF">3 TANKERS · CLAIM</text>
   </svg>`;
 }
 
 function svgFeature7() {
   return `<svg viewBox="0 0 240 58" width="100%" height="58" xmlns="http://www.w3.org/2000/svg">
-    <rect width="240" height="58" fill="#DCFCE7"/>
-    <!-- Senegal tricolor flag -->
-    <g transform="translate(12,11)">
-      <rect x="0" y="0" width="16" height="36" fill="#15803D"/>
-      <rect x="16" y="0" width="16" height="36" fill="#FACC15"/>
-      <rect x="32" y="0" width="16" height="36" fill="#DC2626"/>
-      <polygon points="24,11 25.8,16.5 31.5,16.5 26.8,19.8 28.5,25.2 24,22 19.5,25.2 21.2,19.8 16.5,16.5 22.2,16.5" fill="#15803D"/>
+    <defs>
+      <linearGradient id="pit7" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#D7F4E3"/><stop offset="56%" stop-color="#EBFBEE"/><stop offset="57%" stop-color="#15803D"/><stop offset="100%" stop-color="#166534"/>
+      </linearGradient>
+    </defs>
+    <rect width="240" height="58" fill="url(#pit7)"/>
+    <!-- Stadium floodlights & subtle terrace silhouette -->
+    <path d="M0,34 Q60,24 120,30 Q180,24 240,34 Z" fill="#166534" opacity="0.22"/>
+    <polygon points="10,0 24,0 56,34 42,34" fill="#FFFFFF" opacity="0.28"/>
+    <polygon points="216,0 230,0 198,34 184,34" fill="#FFFFFF" opacity="0.28"/>
+    <!-- Stadium pitch markings -->
+    <line x1="0" y1="35" x2="240" y2="35" stroke="#86EFAC" stroke-width="1" opacity="0.7"/>
+    <ellipse cx="120" cy="48" rx="34" ry="8" fill="none" stroke="#86EFAC" stroke-width="1" opacity="0.7"/>
+    <!-- Senegal waving flag left with crisp ink border -->
+    <g transform="translate(12,10)">
+      <rect x="0" y="0" width="17" height="36" fill="#15803D"/>
+      <rect x="17" y="0" width="17" height="36" fill="#FACC15"/>
+      <rect x="34" y="0" width="17" height="36" fill="#DC2626"/>
+      <rect x="0" y="0" width="51" height="36" fill="none" stroke="#1E293B" stroke-width="1"/>
+      <polygon points="25.5,11 27.3,16.5 33,16.5 28.3,19.8 30,25.2 25.5,22 21,25.2 22.7,19.8 18,16.5 23.7,16.5" fill="#15803D"/>
     </g>
-    <!-- Gold AFCON cup -->
-    <g transform="translate(76,10)">
-      <path d="M4,4 H26 V16 C26,24 20,28 15,28 C10,28 4,24 4,16 Z" fill="#D97706" stroke="#92400E" stroke-width="1"/>
-      <rect x="12" y="28" width="6" height="7" fill="#B45309"/>
-      <rect x="7" y="35" width="16" height="4" fill="#78350F"/>
+    <!-- Gold AFCON championship trophy center with Ligne Claire outline -->
+    <g transform="translate(82,7)">
+      <path d="M5,5 H29 V19 C29,29 22,34 17,34 C12,34 5,29 5,19 Z" fill="#F59E0B" stroke="#1E293B" stroke-width="1.1"/>
+      <path d="M5,10 C-2,10 -2,20 5,21" fill="none" stroke="#B45309" stroke-width="2"/>
+      <path d="M29,10 C36,10 36,20 29,21" fill="none" stroke="#B45309" stroke-width="2"/>
+      <rect x="14" y="34" width="6" height="8" fill="#B45309" stroke="#1E293B" stroke-width="0.9"/>
+      <rect x="8" y="42" width="18" height="4.5" fill="#78350F" stroke="#1E293B" stroke-width="0.9"/>
     </g>
-    <rect x="120" y="9" width="112" height="22" rx="2" fill="#065F46"/>
-    <text x="176" y="23.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="9.8" font-weight="800" fill="#FFFFFF">TITLE RESTORED</text>
-    <rect x="120" y="34" width="112" height="15" rx="2" fill="#FACC15"/>
-    <text x="176" y="44.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.8" font-weight="800" fill="#11100D">CAS OVERTURNS CAF</text>
+    <!-- Mini CAS court gavel icon -->
+    <g transform="translate(125,37)">
+      <line x1="0" y1="14" x2="15" y2="5" stroke="#FDE68A" stroke-width="2.2" stroke-linecap="round"/>
+      <rect x="9" y="0" width="9" height="5" rx="1" fill="#F59E0B" stroke="#1E293B" stroke-width="0.7" transform="rotate(-30 13 3)"/>
+    </g>
+    <!-- Compact badge -->
+    <rect x="136" y="7" width="98" height="19" rx="2" fill="#065F46"/>
+    <text x="185" y="19.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="800" fill="#FFFFFF">TITLE RESTORED</text>
+    <text x="185" y="48" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.6" font-weight="800" fill="#FEF08A">CAS OVERTURNS CAF</text>
   </svg>`;
 }
 
 function svgFeature8() {
   return `<svg viewBox="0 0 240 58" width="100%" height="58" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <linearGradient id="un8" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#271B4B"/><stop offset="100%" stop-color="#432C7A"/>
+      <linearGradient id="un8" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1E143B"/><stop offset="74%" stop-color="#3F2770"/><stop offset="100%" stop-color="#6B3FA0"/>
       </linearGradient>
     </defs>
     <rect width="240" height="58" fill="url(#un8)"/>
-    <!-- UN Globe + Olive wreath -->
-    <g stroke="#93C5FD" fill="none" stroke-width="1.4" transform="translate(36,29)">
-      <circle cx="0" cy="0" r="14"/>
-      <ellipse cx="0" cy="0" rx="7" ry="14"/>
-      <line x1="-14" y1="0" x2="14" y2="0"/>
-      <path d="M-19,6 A20,20 0 0 0 0,20 A20,20 0 0 0 19,6" stroke="#C4B5FD" stroke-width="2"/>
+    <!-- Warm horizon glow -->
+    <rect x="0" y="48" width="240" height="10" fill="#150E29"/>
+    <!-- UN Globe & wreath left -->
+    <g stroke="#93C5FD" fill="none" stroke-width="1.3" transform="translate(30,26)">
+      <circle cx="0" cy="0" r="13"/>
+      <ellipse cx="0" cy="0" rx="6.5" ry="13"/>
+      <line x1="-13" y1="0" x2="13" y2="0"/>
+      <path d="M-17,5 A18,18 0 0 0 0,18 A18,18 0 0 0 17,5" stroke="#C4B5FD" stroke-width="1.8"/>
     </g>
-    <!-- Memorial candle -->
-    <rect x="76" y="27" width="9" height="23" rx="1" fill="#F8FAFC"/>
-    <path d="M80.5,12 Q85,19 80.5,25 Q76,19 80.5,12 Z" fill="#FBBF24"/>
-    <!-- Big Callout -->
-    <text x="170" y="29" text-anchor="middle" font-family="Georgia, serif" font-size="21" font-weight="800" fill="#FFFFFF">47,000</text>
-    <rect x="108" y="35" width="124" height="15" rx="2" fill="#F59E0B"/>
-    <text x="170" y="45.2" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.6" font-weight="800" fill="#11100D">~5 WOMEN / HOUR (2025)</text>
+    <!-- Row of vigil memorial candles across horizon -->
+    <g>
+      <rect x="66" y="34" width="6" height="16" fill="#F8FAFC"/>
+      <path d="M69,24 Q72,29 69,33 Q66,29 69,24 Z" fill="#FBBF24"/>
+      <rect x="82" y="38" width="5" height="12" fill="#E2E8F0"/>
+      <path d="M84.5,30 Q87,34 84.5,37 Q82,34 84.5,30 Z" fill="#F59E0B"/>
+      <rect x="96" y="32" width="6" height="18" fill="#F8FAFC"/>
+      <path d="M99,22 Q102,27 99,31 Q96,27 99,22 Z" fill="#FDE68A"/>
+      <rect x="112" y="39" width="5" height="11" fill="#E2E8F0"/>
+      <path d="M114.5,32 Q117,35 114.5,38 Q112,35 114.5,32 Z" fill="#FBBF24"/>
+    </g>
+    <!-- Clean Typography Callout -->
+    <text x="182" y="27" text-anchor="middle" font-family="Georgia, serif" font-size="21" font-weight="800" fill="#FFFFFF">47,000</text>
+    <rect x="132" y="33" width="100" height="14" rx="2" fill="#F59E0B"/>
+    <text x="182" y="42.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.6" font-weight="800" fill="#11100D">~5 WOMEN / HOUR</text>
   </svg>`;
 }
 
 function svgFeature9() {
   return `<svg viewBox="0 0 240 58" width="100%" height="58" xmlns="http://www.w3.org/2000/svg">
-    <rect width="240" height="58" fill="#0F172A"/>
-    <!-- Subtle grid -->
-    <line x1="0" y1="20" x2="240" y2="20" stroke="#1E293B" stroke-width="1"/>
-    <line x1="0" y1="40" x2="240" y2="40" stroke="#1E293B" stroke-width="1"/>
-    <!-- Area chart shooting up -->
-    <polygon points="10,50 42,46 68,40 94,30 118,12 118,54 10,54" fill="#10B981" opacity="0.28"/>
-    <polyline points="10,50 42,46 68,40 94,30 118,12" fill="none" stroke="#34D399" stroke-width="2.6"/>
-    <circle cx="118" cy="12" r="3.5" fill="#FBBF24"/>
-    <!-- Callouts right -->
-    <rect x="128" y="9" width="106" height="22" rx="2" fill="#059669"/>
-    <text x="181" y="24" text-anchor="middle" font-family="Arial, sans-serif" font-size="11.2" font-weight="800" fill="#FFFFFF">TAIEX +8.99%</text>
-    <rect x="128" y="34" width="106" height="15" rx="2" fill="#FBBF24"/>
-    <text x="181" y="44.2" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.2" font-weight="800" fill="#0F172A">KOSPI +7% · NIKKEI +4%</text>
+    <rect width="240" height="58" fill="#0B1626"/>
+    <!-- Subtle semiconductor die grid -->
+    <g stroke="#1E3A5F" stroke-width="0.8" opacity="0.6">
+      <line x1="0" y1="19" x2="240" y2="19"/><line x1="0" y1="38" x2="240" y2="38"/>
+      <line x1="60" y1="0" x2="60" y2="58"/><line x1="120" y1="0" x2="120" y2="58"/><line x1="180" y1="0" x2="180" y2="58"/>
+    </g>
+    <!-- Full-width steep ascending bull rally -->
+    <polygon points="8,53 56,49 102,43 148,32 192,20 226,8 226,55 8,55" fill="#10B981" opacity="0.28"/>
+    <polyline points="8,53 56,49 102,43 148,32 192,20 226,8" fill="none" stroke="#34D399" stroke-width="2.8"/>
+    <!-- Secondary Kospi trace -->
+    <polyline points="8,54 70,51 142,41 226,24" fill="none" stroke="#60A5FA" stroke-width="1.3" stroke-dasharray="3,2"/>
+    <circle cx="226" cy="8" r="3.8" fill="#FBBF24"/>
+    <!-- Compact badge top-left -->
+    <rect x="8" y="6" width="96" height="18" rx="2" fill="#059669"/>
+    <text x="56" y="18.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10.2" font-weight="800" fill="#FFFFFF">TAIEX +8.99%</text>
+    <text x="56" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.4" font-weight="800" fill="#FBBF24">KOSPI +7% · NIKKEI +4%</text>
   </svg>`;
 }
 
@@ -330,32 +433,34 @@ function svgFeature10() {
   return `<svg viewBox="0 0 240 58" width="100%" height="58" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="sea10" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#D7ECFA"/><stop offset="52%" stop-color="#C3E1F5"/><stop offset="53%" stop-color="#29668E"/><stop offset="100%" stop-color="#1A496B"/>
+        <stop offset="0%" stop-color="#D7ECFA"/><stop offset="48%" stop-color="#C3E1F5"/><stop offset="49%" stop-color="#225B84"/><stop offset="100%" stop-color="#163F5E"/>
       </linearGradient>
     </defs>
     <rect width="240" height="58" fill="url(#sea10)"/>
-    <!-- Myanmar coast top-left & Malaysia shore bottom-right -->
-    <path d="M0,0 H56 L42,14 L18,16 L0,24 Z" fill="#D8C8A8"/>
-    <path d="M84,58 L104,44 L132,46 L132,58 Z" fill="#CBB893"/>
-    <!-- Aircraft flying north-west -->
-    <g transform="translate(56,14) rotate(-14)">
+    <!-- Myanmar coast top-left & Malaysia coast bottom-right -->
+    <path d="M0,0 H68 L48,16 L22,19 L0,27 Z" fill="#D8C8A8" stroke="#A69674" stroke-width="0.7"/>
+    <path d="M150,58 L174,40 L240,42 V58 Z" fill="#CBB893" stroke="#9B8A68" stroke-width="0.7"/>
+    <text x="24" y="11" font-family="Arial, sans-serif" font-size="6.4" font-weight="800" fill="#574B36">MYANMAR</text>
+    <text x="206" y="53" text-anchor="middle" font-family="Arial, sans-serif" font-size="6.4" font-weight="800" fill="#453A28">MALAYSIA</text>
+    <!-- Commercial aircraft high transit arc -->
+    <path d="M168,40 Q120,24 58,15" fill="none" stroke="#0F766E" stroke-width="1.3" stroke-dasharray="3,2"/>
+    <g transform="translate(82,12) rotate(-12)">
       <path d="M0,4 L26,2 L32,4 L26,6 L0,4 Z" fill="#1E293B"/>
       <polygon points="10,4 16,-4 20,4" fill="#334155"/>
       <polygon points="10,4 16,11 20,4" fill="#334155"/>
     </g>
-    <!-- Transit arc -->
-    <path d="M90,34 Q68,26 42,18" fill="none" stroke="#0F766E" stroke-width="1.3" stroke-dasharray="3,2"/>
-    <!-- Navy transport vessel -->
-    <g transform="translate(14,34)">
-      <polygon points="0,8 56,8 50,16 5,16" fill="#0F172A"/>
-      <rect x="12" y="2" width="18" height="6" fill="#475569"/>
-      <rect x="33" y="4" width="10" height="4" fill="#94A3B8"/>
+    <!-- Navy transport vessel steaming across Andaman Sea -->
+    <g transform="translate(36,34)">
+      <polygon points="0,8 66,8 58,16 6,16" fill="#0F172A"/>
+      <rect x="14" y="2" width="22" height="6" fill="#475569"/>
+      <rect x="40" y="4" width="12" height="4" fill="#94A3B8"/>
+      <line x1="6" y1="18" x2="62" y2="18" stroke="#93C5FD" stroke-width="1" opacity="0.6"/>
     </g>
-    <!-- Callout -->
-    <rect x="122" y="8" width="112" height="22" rx="2" fill="#0F766E"/>
-    <text x="178" y="22.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="9.6" font-weight="800" fill="#FFFFFF">6,500+ RETURNED</text>
-    <rect x="122" y="34" width="112" height="15" rx="2" fill="#F59E0B"/>
-    <text x="178" y="44.2" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.4" font-weight="800" fill="#11100D">1,500 SHIP · 5,300 AIR</text>
+    <!-- Compact badge -->
+    <rect x="132" y="5" width="102" height="18" rx="2" fill="#0F766E"/>
+    <text x="183" y="17.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="9.2" font-weight="800" fill="#FFFFFF">6,800 RETURN</text>
+    <rect x="132" y="25" width="102" height="13" rx="2" fill="#0F172A" opacity="0.86"/>
+    <text x="183" y="34.2" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.1" font-weight="800" fill="#FEF08A">1,500 SHIP · 5,300 AIR</text>
   </svg>`;
 }
 
@@ -363,85 +468,134 @@ function svgFeature11() {
   return `<svg viewBox="0 0 240 58" width="100%" height="58" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="space11" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#070B1D"/><stop offset="100%" stop-color="#172554"/>
+        <stop offset="0%" stop-color="#050918"/><stop offset="100%" stop-color="#13224E"/>
       </linearGradient>
     </defs>
     <rect width="240" height="58" fill="url(#space11)"/>
-    <circle cx="16" cy="12" r="1" fill="#E2E8F0"/><circle cx="98" cy="10" r="1.2" fill="#FDE68A"/>
-    <circle cx="88" cy="48" r="1" fill="#93C5FD"/><circle cx="114" cy="44" r="1.1" fill="#FFFFFF"/>
-    <!-- Quasar & relativistic jet -->
-    <line x1="22" y1="48" x2="82" y2="10" stroke="#38BDF8" stroke-width="2" opacity="0.8"/>
-    <ellipse cx="52" cy="29" rx="22" ry="6" fill="none" stroke="#F59E0B" stroke-width="2.4" transform="rotate(-18 52 29)"/>
-    <circle cx="52" cy="29" r="5" fill="#FEF3C7"/>
-    <!-- Euclid tiny silhouette -->
-    <rect x="86" y="20" width="12" height="16" fill="#94A3B8"/>
-    <rect x="98" y="23" width="10" height="10" fill="#3B82F6"/>
-    <!-- Callout -->
-    <rect x="121" y="9" width="113" height="22" rx="2" fill="#1D4ED8"/>
-    <text x="177.5" y="23.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.8" font-weight="800" fill="#FFFFFF">630M YRS POST-BB</text>
-    <text x="177.5" y="44.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#93C5FD">360M SOLAR MASSES</text>
+    <!-- Crisp starfield -->
+    <g fill="#E2E8F0">
+      <circle cx="14" cy="11" r="1"/><circle cx="32" cy="46" r="0.9"/><circle cx="104" cy="10" r="1.2"/>
+      <circle cx="136" cy="47" r="1"/><circle cx="182" cy="13" r="0.9"/><circle cx="222" cy="48" r="1.1"/>
+    </g>
+    <!-- Quasar J1504+6252 with long twin relativistic jets -->
+    <line x1="18" y1="53" x2="112" y2="5" stroke="#38BDF8" stroke-width="2.4" opacity="0.85"/>
+    <line x1="18" y1="53" x2="112" y2="5" stroke="#E0F2FE" stroke-width="0.9"/>
+    <ellipse cx="65" cy="29" rx="28" ry="8" fill="none" stroke="#F59E0B" stroke-width="2.6" transform="rotate(-18 65 29)"/>
+    <ellipse cx="65" cy="29" rx="18" ry="5" fill="none" stroke="#FDE68A" stroke-width="1.4" transform="rotate(-18 65 29)"/>
+    <circle cx="65" cy="29" r="5.5" fill="#050918" stroke="#FEF3C7" stroke-width="1.4"/>
+    <!-- Detailed ESA Euclid space telescope right -->
+    <g transform="translate(198,28) scale(0.88)">
+      <rect x="0" y="4" width="14" height="20" rx="1" fill="#CBD5E1"/>
+      <rect x="2" y="0" width="10" height="5" fill="#F59E0B"/>
+      <rect x="14" y="8" width="18" height="12" fill="#2563EB" stroke="#93C5FD" stroke-width="0.7"/>
+    </g>
+    <!-- Compact badge -->
+    <rect x="122" y="5" width="112" height="17" rx="2" fill="#1D4ED8"/>
+    <text x="178" y="16.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="8.4" font-weight="800" fill="#FFFFFF">630M YRS POST-BB</text>
+    <text x="148" y="47" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.1" font-weight="700" fill="#93C5FD">360M SOLAR MASSES</text>
   </svg>`;
 }
 
 function svgWorldMap() {
-  const pins = [
-    { n: 2, x: 56, y: 55, c: REGION_COLORS.NA },
-    { n: 3, x: 73, y: 67, c: REGION_COLORS.NA },
-    { n: 5, x: 116, y: 45, c: REGION_COLORS.EU },
-    { n: 7, x: 110, y: 95, c: REGION_COLORS.AF },
-    { n: 8, x: 133, y: 48, c: REGION_COLORS.WS },
-    { n: 4, x: 149, y: 55, c: REGION_COLORS.EU },
-    { n: 6, x: 166, y: 76, c: REGION_COLORS.ME },
-    { n: 10, x: 194, y: 94, c: REGION_COLORS.SE },
-    { n: 1, x: 205, y: 63, c: REGION_COLORS.EA },
-    { n: 9, x: 221, y: 76, c: REGION_COLORS.EA },
-    { n: 11, x: 234, y: 14, c: REGION_COLORS.WS },
+  // Real-world geographic projection: lon [-180..180] -> [0..254], lat [85..-60] -> [0..166]
+  const px = (lon) => +(((lon + 180) / 360) * 254).toFixed(1);
+  const py = (lat) => +(((85 - lat) / 145) * 166).toFixed(1);
+  const poly = (pts) => "M" + pts.map(([lo, la]) => `${px(lo)},${py(la)}`).join(" L") + " Z";
+
+  const continents = [
+    // Greenland
+    [[-44,60],[-52,68],[-58,76],[-42,82],[-22,81],[-18,72],[-30,66]],
+    // Iceland
+    [[-24,64],[-14,66],[-14,64],[-22,63]],
+    // North & Central America (Alaska, Hudson Bay, Labrador, Florida, Gulf, Yucatan, Baja)
+    [[-168,66],[-156,71],[-136,69],[-118,68],[-96,68],[-94,60],[-82,53],[-78,61],[-66,60],[-55,52],[-60,46],[-70,42],[-75,35],[-80,25],[-83,29],[-90,29],[-97,26],[-96,19],[-88,21],[-87,16],[-83,10],[-78,8],[-84,9],[-92,15],[-105,20],[-110,24],[-114,31],[-118,34],[-124,41],[-125,49],[-136,58],[-152,60],[-162,56]],
+    // Cuba & Hispaniola
+    [[-84,22],[-74,20],[-75,21],[-83,23]],
+    // South America (Colombia, Venezuela, Brazil NE bulge, Argentina, Tierra del Fuego, Andes)
+    [[-78,9],[-70,12],[-60,9],[-50,2],[-35,-6],[-38,-14],[-42,-23],[-48,-28],[-54,-34],[-62,-40],[-66,-50],[-69,-55],[-74,-52],[-73,-40],[-71,-30],[-71,-18],[-78,-12],[-81,-5],[-79,2]],
+    // Great Britain & Ireland
+    [[-6,50],[-5,55],[-3,58],[0,56],[2,52],[0,50]],
+    [[-10,52],[-8,55],[-6,54],[-8,51]],
+    // Mainland Europe (Iberia, France, Italy boot, Greece, Scandinavia, Baltics)
+    [[-9,37],[-9,43],[-2,43],[-4,48],[2,51],[8,54],[10,57],[5,60],[10,64],[18,69],[28,70],[32,66],[26,60],[21,59],[24,55],[14,54],[20,48],[28,46],[38,46],[36,42],[28,41],[24,38],[20,40],[18,43],[14,45],[12,42],[16,38],[14,40],[9,44],[4,43],[0,39],[-5,36]],
+    // Africa (Maghreb, Egypt, Horn of Africa, Cape, Gulf of Guinea)
+    [[-17,15],[-10,32],[0,36],[10,37],[12,33],[24,32],[32,31],[36,24],[42,12],[51,11],[44,2],[40,-6],[40,-16],[34,-24],[28,-33],[18,-34],[14,-22],[12,-12],[10,-2],[8,4],[0,5],[-10,5],[-16,11]],
+    // Madagascar
+    [[44,-25],[46,-17],[50,-12],[49,-18],[46,-25]],
+    // Asia & Middle East (Anatolia, Arabia, India, Indochina, Malay, China, Korea, Siberia, Kamchatka)
+    [[27,40],[36,42],[44,42],[48,46],[60,55],[68,72],[104,77],[140,73],[174,66],[162,55],[154,51],[142,54],[136,44],[129,40],[129,35],[126,37],[122,40],[118,38],[122,31],[120,24],[110,20],[108,12],[103,10],[100,13],[103,2],[100,5],[98,16],[92,22],[88,22],[80,14],[77,8],[72,21],[66,25],[58,25],[56,26],[50,28],[59,22],[52,15],[44,13],[39,21],[35,28],[35,36],[28,36]],
+    // Sri Lanka
+    [[80,9],[82,7],[80,6],[79,8]],
+    // Japan archipelago
+    [[130,32],[134,34],[140,36],[142,41],[145,44],[141,45],[138,38],[132,34]],
+    // Taiwan & Philippines
+    [[120,22],[122,25],[121,25],[120,23]],
+    [[120,18],[124,14],[126,8],[123,7],[120,14]],
+    // Sumatra, Java, Borneo
+    [[96,5],[104,-5],[102,-6],[95,3]],
+    [[106,-6],[114,-8],[114,-9],[106,-7]],
+    [[109,1],[117,6],[119,1],[115,-4],[110,-3]],
+    // New Guinea
+    [[132,-2],[142,-3],[150,-10],[146,-10],[136,-5]],
+    // Australia & Tasmania
+    [[114,-22],[122,-17],[132,-12],[136,-15],[142,-11],[146,-18],[153,-26],[150,-37],[140,-38],[135,-34],[128,-32],[115,-34],[113,-26]],
+    [[145,-41],[148,-41],[147,-43],[145,-43]],
+    // New Zealand
+    [[174,-35],[178,-38],[175,-41],[172,-44],[167,-46],[170,-42],[174,-39]],
   ];
-  return `<svg viewBox="0 0 254 168" width="100%" height="168" xmlns="http://www.w3.org/2000/svg">
-    <rect width="254" height="168" fill="#D8E8F4" stroke="#B6C7D6" stroke-width="1"/>
-    <!-- Latitude/longitude lines -->
-    <g stroke="#C2D7E8" stroke-width="0.6">
-      <line x1="0" y1="42" x2="254" y2="42"/>
-      <line x1="0" y1="86" x2="254" y2="86" stroke-dasharray="3,2"/>
-      <line x1="0" y1="128" x2="254" y2="128"/>
-      <line x1="64" y1="0" x2="64" y2="168"/>
-      <line x1="127" y1="0" x2="127" y2="168"/>
-      <line x1="190" y1="0" x2="190" y2="168"/>
+
+  const mainPins = [
+    { n: 2, x: 66, y: 48, c: REGION_COLORS.NA },   // Brooklyn NY
+    { n: 3, x: 80, y: 56, c: REGION_COLORS.NA },   // NJ / Paris deal
+    { n: 5, x: 121, y: 37, c: REGION_COLORS.EU },  // London
+    { n: 8, x: 137, y: 41, c: REGION_COLORS.WS },  // Vienna UN
+    { n: 4, x: 153, y: 44, c: REGION_COLORS.EU },  // Zaporizhzhia / Poland
+    { n: 7, x: 115, y: 80, c: REGION_COLORS.AF },  // Dakar Senegal
+    { n: 6, x: 168, y: 65, c: REGION_COLORS.ME },  // Strait of Hormuz
+    { n: 10, x: 199, y: 92, c: REGION_COLORS.SE }, // Malaysia / Myanmar
+    { n: 1, x: 211, y: 58, c: REGION_COLORS.EA },  // Shanghai
+    { n: 9, x: 220, y: 72, c: REGION_COLORS.EA },  // Taipei
+    { n: 11, x: 234, y: 14, c: REGION_COLORS.WS }, // Euclid Space
+  ];
+  const regionalPins = [
+    { n: 16, x: 157, y: 78, c: REGION_COLORS.ME }, // Yemen / Riyadh
+    { n: 20, x: 146, y: 126, c: REGION_COLORS.AF },// South Africa
+    { n: 25, x: 189, y: 71, c: REGION_COLORS.SA }, // Dhaka South Asia
+    { n: 33, x: 76, y: 92, c: REGION_COLORS.LA },  // Villavicencio
+    { n: 35, x: 62, y: 101, c: REGION_COLORS.LA }, // Galapagos
+    { n: 36, x: 229, y: 135, c: REGION_COLORS.OC },// Canberra Australia
+  ];
+  return `<svg viewBox="0 0 254 166" width="100%" height="166" xmlns="http://www.w3.org/2000/svg">
+    <rect width="254" height="166" fill="#D5E7F5" stroke="#AEBFCE" stroke-width="1"/>
+    <g stroke="#BED5E8" stroke-width="0.55">
+      <line x1="0" y1="${py(60)}" x2="254" y2="${py(60)}"/>
+      <line x1="0" y1="${py(30)}" x2="254" y2="${py(30)}"/>
+      <line x1="0" y1="${py(0)}" x2="254" y2="${py(0)}" stroke-dasharray="3,2"/>
+      <line x1="0" y1="${py(-30)}" x2="254" y2="${py(-30)}"/>
+      <line x1="${px(-120)}" y1="0" x2="${px(-120)}" y2="166"/>
+      <line x1="${px(-60)}" y1="0" x2="${px(-60)}" y2="166"/>
+      <line x1="${px(0)}" y1="0" x2="${px(0)}" y2="166"/>
+      <line x1="${px(60)}" y1="0" x2="${px(60)}" y2="166"/>
+      <line x1="${px(120)}" y1="0" x2="${px(120)}" y2="166"/>
     </g>
-    <!-- Recognizable continents -->
-    <g fill="#E7DFCE" stroke="#9AA6B2" stroke-width="0.7">
-      <!-- Greenland -->
-      <path d="M84,12 L102,10 L98,26 L84,24 Z"/>
-      <!-- North America -->
-      <path d="M12,30 L36,21 L66,26 L78,40 L68,62 L54,74 L44,84 L32,74 L24,57 L14,45 Z"/>
-      <!-- South America -->
-      <path d="M54,86 L74,91 L88,110 L78,136 L66,156 L58,134 L52,106 Z"/>
-      <!-- Europe -->
-      <path d="M118,31 L138,22 L152,29 L154,55 L142,60 L126,62 L116,53 Z"/>
-      <!-- UK & Ireland -->
-      <ellipse cx="114" cy="43" rx="3.2" ry="6"/>
-      <!-- Africa -->
-      <path d="M114,67 L142,67 L154,82 L150,113 L136,142 L124,115 L112,91 Z"/>
-      <!-- Madagascar -->
-      <ellipse cx="156" cy="122" rx="2.6" ry="7" transform="rotate(18 156 122)"/>
-      <!-- Middle East + Asia -->
-      <path d="M150,62 L166,65 L172,79 L158,82 Z"/>
-      <path d="M154,26 L214,26 L224,45 L212,72 L196,89 L182,79 L168,62 L154,55 Z"/>
-      <!-- Japan & Indonesia -->
-      <ellipse cx="222" cy="57" rx="2.6" ry="8" transform="rotate(24 222 57)"/>
-      <path d="M188,95 L208,98 L206,103 L186,101 Z"/>
-      <!-- Australia + NZ -->
-      <path d="M196,113 L226,113 L230,137 L214,146 L194,134 Z"/>
-      <ellipse cx="240" cy="146" rx="2.3" ry="6" transform="rotate(26 240 146)"/>
+    <g fill="#E9E1CF" stroke="#8E9CA8" stroke-width="0.65" stroke-linejoin="round">
+      ${continents.map((c) => `<path d="${poly(c)}"/>`).join("")}
     </g>
-    <!-- Space box top right -->
-    <rect x="218" y="3" width="32" height="30" rx="2" fill="#E2E8F0" stroke="#64748B" stroke-width="0.7" opacity="0.9"/>
-    <text x="234" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="5.8" font-weight="800" fill="#334155">SPACE</text>
-    ${pins
+    <rect x="218" y="3" width="32" height="29" rx="2" fill="#E2E8F0" stroke="#64748B" stroke-width="0.7" opacity="0.92"/>
+    <text x="234" y="29.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="5.8" font-weight="800" fill="#334155">SPACE</text>
+    ${regionalPins
       .map(
         (p) => `<g>
-        <circle cx="${p.x}" cy="${p.y}" r="6.8" fill="${p.c}" stroke="#FFFFFF" stroke-width="1.2"/>
-        <text x="${p.x}" y="${p.y + 2.4}" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.2" font-weight="800" fill="#FFFFFF">${p.n}</text>
+        <circle cx="${p.x}" cy="${p.y}" r="5.3" fill="${p.c}" stroke="#FFFFFF" stroke-width="1"/>
+        <text x="${p.x}" y="${p.y + 1.9}" text-anchor="middle" font-family="Arial, sans-serif" font-size="5.5" font-weight="800" fill="#FFFFFF">${p.n}</text>
+      </g>`
+      )
+      .join("")}
+    ${mainPins
+      .map(
+        (p) => `<g>
+        <circle cx="${p.x}" cy="${p.y}" r="6.6" fill="${p.c}" stroke="#FFFFFF" stroke-width="1.2"/>
+        <text x="${p.x}" y="${p.y + 2.3}" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" font-weight="800" fill="#FFFFFF">${p.n}</text>
       </g>`
       )
       .join("")}
@@ -543,12 +697,12 @@ const FEATURES = [
   {
     num: 9,
     reg: "EA",
-    place: "TAIPEI, TAIWAN",
+    place: "TAIPEI · SEOUL",
     status: "CONFIRMED",
     statusColor: "#1D4ED8",
     svg: svgFeature9(),
-    headline: "Taiwan TAIEX jumps +8.99% in chip surge",
-    summary: "Record single-day jump leads Asia tech rebound (Kospi +7%, Nikkei +4%).",
+    headline: "Taiwan TAIEX jumps +8.99% in Asia chip surge",
+    summary: "Record jump leads Asia tech rally (Kospi +7%, Nikkei +4%) before US cools.",
     source: "Focus Taiwan, Reuters",
   },
   {
@@ -558,8 +712,8 @@ const FEATURES = [
     status: "OFFICIAL",
     statusColor: "#0F766E",
     svg: svgFeature10(),
-    headline: "Malaysia to return 6,500+ Rohingya to Myanmar",
-    summary: "PM Anwar says 1,500 will depart by navy ship in Dec and 5,300 by air.",
+    headline: "Malaysia to return 6,800 Rohingya to Myanmar",
+    summary: "PM Anwar says 1,500 depart by navy ship in Dec and 5,300 by air.",
     source: "Al Jazeera",
   },
   {
@@ -570,48 +724,53 @@ const FEATURES = [
     statusColor: "#0F766E",
     svg: svgFeature11(),
     headline: "Euclid finds most distant quasar J1504+6252",
-    summary: "Holds 360M-solar-mass black hole seen 630M yrs after Big Bang.",
+    summary: "360M-solar-mass black hole spotted 630M yrs after the Big Bang.",
     source: "ESA",
   },
 ];
 
 const BRIEFS_COL1 = [
-  { num: 12, reg: "EU", title: "Geneva Chess", text: "World Championship G1 (Gukesh–Sindarov) drawn", src: "FIDE" },
-  { num: 13, reg: "EU", title: "EU Tax Gap", text: "Commission cites €200bn uncollected revenue", src: "EU Comm." },
-  { num: 14, reg: "EU", title: "UK–EU Auto", text: "Irish plan offers UK car plants tariff status", src: "Guardian" },
-  { num: 15, reg: "EU", title: "UNSC Clash", text: "Russia & Ukraine spar over Black Sea & grid", src: "Anadolu" },
-  { num: 16, reg: "ME", title: "Gaza City", text: "Israeli strikes kill 7; meningitis alert issued", src: "Al Jazeera" },
-  { num: 17, reg: "ME", title: "White House", text: "Vance & Rubio meet Qatari PM on Iran crisis", src: "Reuters" },
-  { num: 18, reg: "ME", title: "Baghdad", text: "Oil Ministry moves to take over Kurdish oilfields", src: "Al Jazeera" },
-  { num: 19, reg: "AF", title: "Madagascar", text: "Prosecutors seek arrest of ex-Pres. Rajoelina", src: "AFP" },
-  { num: 20, reg: "AF", title: "Indian Ocean", text: "M6.4 quake near Mauritius; no tsunami alert", src: "GDACS" },
-  { num: 21, reg: "EA", title: "China Aviation", text: "China Southern unit buys 50 Boeing 737-8 jets", src: "Al Jazeera" },
-  { num: 22, reg: "EA", title: "Beijing", text: "China & US hold first bilateral farm talks", src: "Xinhua" },
-  { num: 23, reg: "EA", title: "Asia Tech", text: "Data centers shift AI compute to US amid curbs", src: "Reuters" },
-  { num: 24, reg: "SE", title: "Singapore", text: "Q3 GDP up 6.1% YoY on chips; 2026 view ~6%", src: "MTI" },
+  { num: 12, reg: "EU", title: "Paris Courts", text: "Sarkozy & Carla Bruni ordered to 2027 Libya trial", src: "AFP" },
+  { num: 13, reg: "EU", title: "Brussels", text: "EU caps Chinese hybrid car imports at 350,000/yr", src: "Guardian" },
+  { num: 14, reg: "EU", title: "Versailles", text: "Officer in Nahel shooting ordered to murder trial", src: "AP" },
+  { num: 15, reg: "EU", title: "Europe Sport", text: "Chess G1 drawn; UCL Arsenal 1–1, Man City 2–2", src: "FIDE, UEFA" },
+  { num: 16, reg: "ME", title: "Yemen / Riyadh", text: "Houthis 60 km from Aden; drone hurts 11 at KAFD", tag: "REPORTED", src: "Reuters" },
+  { num: 17, reg: "ME", title: "Baghdad", text: "PM puts 4 provinces' Kurdish oilfields under state", src: "Al Jazeera" },
+  { num: 18, reg: "ME", title: "Gaza City", text: "Israeli strikes kill 7; meningitis alert issued", src: "Al Jazeera" },
+  { num: 19, reg: "ME", title: "White House", text: "Vance & Rubio meet Qatari PM on Iran crisis", src: "Reuters" },
+  { num: 20, reg: "AF", title: "South Africa", text: "Johannesburg & Tshwane impose Level 2 water curbs", src: "Africanews" },
+  { num: 21, reg: "AF", title: "Madagascar", text: "Prosecutors seek arrest of ex-Pres. Rajoelina", src: "AFP" },
+  { num: 22, reg: "AF", title: "Indian Ocean", text: "M6.4 quake near Mauritius; no tsunami alert", src: "GDACS" },
+  { num: 23, reg: "EA", title: "China Aviation", text: "China Southern unit buys 50 Boeing 737-8 jets", src: "Al Jazeera" },
+  { num: 24, reg: "EA", title: "Beijing", text: "China & US hold first bilateral farm talks", src: "Xinhua" },
+  { num: 25, reg: "SA", title: "Dhaka", text: "Hasina plans 16 Dec return; govt says arrest only", tag: "CLAIM", src: "Al Jazeera" },
 ];
 
 const BRIEFS_COL2 = [
-  { num: 25, reg: "SE", title: "Hanoi", text: "Restaurant gas blast in Dong Da kills 6, hurts 10", src: "WashPost" },
-  { num: 26, reg: "SE", title: "Indonesia", text: "Repatriates 139 held in Manila scam raid", src: "AP" },
-  { num: 27, reg: "SE", title: "New Delhi", text: "PM Modi & Germany’s Merz review ties by phone", src: "Reuters" },
-  { num: 28, reg: "NA", title: "UN / WFP", text: "Sea chokepoints risk food aid for 7.3M (+$727m)", src: "WFP" },
-  { num: 29, reg: "LA", title: "Villavicencio", text: "Car bomb by governor office hurts 23 (02:30 UTC)", src: "WashPost" },
-  { num: 30, reg: "LA", title: "Mexico City", text: "To try ‘El Chapo Isidro’ at home, no extradition", src: "AP" },
-  { num: 31, reg: "LA", title: "Brasília", text: "Petrobras buys 42% of Neomille; ECLAC opens", src: "Reuters" },
-  { num: 32, reg: "LA", title: "Galápagos", text: "El Niño rains force Santa Cruz flood emergency", src: "AP" },
-  { num: 33, reg: "OC", title: "Canberra", text: "Online Duty bill sets 5% global revenue fines", src: "Guardian" },
-  { num: 34, reg: "OC", title: "Singapore–Aus", text: "Wong & Albanese sign carbon & minerals pacts", src: "Reuters" },
-  { num: 35, reg: "OC", title: "Gold Coast", text: "England beat Australia to level T20 series", src: "ICC" },
-  { num: 36, reg: "WS", title: "Jiuquan", text: "China names Pakistan’s Zeeshan Ali for Shenzhou-24", src: "Xinhua" },
+  { num: 26, reg: "SA", title: "India–China", text: "Commanders hold border talks; Modi calls Merz", src: "Reuters" },
+  { num: 27, reg: "SA", title: "Nepal", text: "M5.6 quake hits Taplejung; felt in Bangladesh", src: "Daily Star" },
+  { num: 28, reg: "SE", title: "Singapore", text: "Q3 GDP up 6.1% YoY on chips; 2026 view ~6%", src: "MTI" },
+  { num: 29, reg: "SE", title: "Hanoi", text: "Restaurant gas blast in Dong Da kills 6, hurts 10", src: "WashPost" },
+  { num: 30, reg: "SE", title: "Indonesia", text: "Repatriates 139 held in Manila scam raid", src: "AP" },
+  { num: 31, reg: "NA", title: "Wall Street", text: "Dow closes above 50,000 (+0.85%); Nasdaq −1.48%", src: "AP" },
+  { num: 32, reg: "NA", title: "Washington", text: "US blacklists Megaspeed in AI chip probe", src: "Al Jazeera" },
+  { num: 33, reg: "LA", title: "Villavicencio", text: "Car bomb by governor office hurts 23 (02:30 UTC)", src: "WashPost" },
+  { num: 34, reg: "LA", title: "Mexico City", text: "To try ‘El Chapo Isidro’ at home, no extradition", src: "AP" },
+  { num: 35, reg: "LA", title: "Galápagos", text: "El Niño rains force Santa Cruz flood emergency", src: "AP" },
+  { num: 36, reg: "OC", title: "Canberra", text: "Online Duty bill sets 5% global revenue fines", src: "Guardian" },
+  { num: 37, reg: "OC", title: "Gold Coast", text: "England beat Australia to level T20 series", src: "ICC" },
+  { num: 38, reg: "WS", title: "Jiuquan", text: "China names Pakistan’s Zeeshan Ali for Shenzhou-24", src: "Xinhua" },
 ];
 
 function renderBriefRow(b) {
   const col = REGION_COLORS[b.reg];
+  const tagHtml = b.tag
+    ? `<span class="b-tag" style="color:${b.tag === "CLAIM" ? "#C2410C" : "#475569"}">${b.tag}</span>`
+    : "";
   return `<div class="brief-row">
     <span class="b-num" style="background:${col}">${b.num}</span>
     <span class="b-body"><strong style="color:${col}">${b.title}:</strong> ${b.text}</span>
-    <span class="b-src">${b.src}</span>
+    ${tagHtml}<span class="b-src">${b.src}</span>
   </div>`;
 }
 
@@ -633,31 +792,31 @@ const HTML = `<!DOCTYPE html>
   .page {
     width: 1024px;
     height: 1024px;
-    padding: 8px 14px 8px 14px;
+    padding: 7px 13px 7px 13px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4.5px;
     background: #FBF7EE;
   }
   .top-kicker {
     display: flex;
     justify-content: space-between;
-    font-size: 8.6px;
+    font-size: 8.5px;
     font-weight: 800;
-    letter-spacing: 0.55px;
+    letter-spacing: 0.5px;
     border-bottom: 1.5px solid #1A1713;
-    padding-bottom: 2px;
+    padding-bottom: 1.5px;
   }
   .k-left { color: #8B1E1E; }
   .k-right { color: #1A1713; }
 
   .masthead {
     text-align: center;
-    padding: 0 0 3px 0;
+    padding: 0 0 2px 0;
   }
   .masthead h1 {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 50px;
+    font-size: 48px;
     font-weight: 700;
     letter-spacing: -0.9px;
     line-height: 0.98;
@@ -666,7 +825,7 @@ const HTML = `<!DOCTYPE html>
   .masthead-deck {
     font-family: Georgia, "Times New Roman", serif;
     font-style: italic;
-    font-size: 11.4px;
+    font-size: 11.2px;
     font-weight: 700;
     color: #8B1E1E;
     margin-top: 2px;
@@ -675,7 +834,7 @@ const HTML = `<!DOCTYPE html>
   .region-bar {
     display: flex;
     width: 100%;
-    height: 19px;
+    height: 18px;
     border-top: 1.5px solid #1A1713;
     border-bottom: 1.5px solid #1A1713;
   }
@@ -685,9 +844,9 @@ const HTML = `<!DOCTYPE html>
     align-items: center;
     justify-content: center;
     color: #FFFFFF;
-    font-size: 7.9px;
+    font-size: 7.4px;
     font-weight: 800;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.25px;
     border-right: 1px solid #FBF7EE;
     white-space: nowrap;
   }
@@ -699,12 +858,12 @@ const HTML = `<!DOCTYPE html>
     background: #EFE9DC;
     border-top: 1px solid #C8BFA9;
     border-bottom: 1.5px solid #1A1713;
-    height: 25px;
+    height: 24px;
   }
   .utc-badge {
     background: #8B1E1E;
     color: #FFFFFF;
-    font-size: 7.6px;
+    font-size: 7.5px;
     font-weight: 800;
     line-height: 1.05;
     padding: 0 7px;
@@ -717,7 +876,7 @@ const HTML = `<!DOCTYPE html>
   .utc-items {
     flex: 1;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(7, 1fr);
   }
   .utc-cell {
     display: flex;
@@ -725,15 +884,15 @@ const HTML = `<!DOCTYPE html>
     justify-content: center;
     padding: 0 6px;
     border-left: 1px solid #D3C9B4;
-    line-height: 1.08;
+    line-height: 1.06;
   }
   .utc-t {
-    font-size: 8.4px;
+    font-size: 8.3px;
     font-weight: 800;
     color: #8B1E1E;
   }
   .utc-l {
-    font-size: 7.9px;
+    font-size: 7.8px;
     font-weight: 700;
     color: #1C1917;
     white-space: nowrap;
@@ -745,7 +904,7 @@ const HTML = `<!DOCTYPE html>
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    padding-bottom: 5px;
+    padding-bottom: 4px;
     border-bottom: 1.5px solid #1A1713;
   }
   .lead-col {
@@ -770,10 +929,10 @@ const HTML = `<!DOCTYPE html>
     display: flex;
     align-items: center;
     gap: 4px;
-    font-size: 8.2px;
+    font-size: 8.1px;
     font-weight: 800;
     color: #292524;
-    letter-spacing: 0.35px;
+    letter-spacing: 0.3px;
   }
   .num-dot {
     display: inline-flex;
@@ -783,49 +942,49 @@ const HTML = `<!DOCTYPE html>
     height: 14px;
     border-radius: 50%;
     color: #FFFFFF;
-    font-size: 8.2px;
+    font-size: 8.1px;
     font-weight: 800;
     flex-shrink: 0;
   }
   .status-tag {
-    font-size: 7px;
+    font-size: 6.9px;
     font-weight: 800;
     padding: 0.5px 4px;
     border: 1.2px solid currentColor;
     border-radius: 2px;
     background: #FFFDF8;
-    letter-spacing: 0.35px;
+    letter-spacing: 0.3px;
   }
   .lead-col h2 {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 14.6px;
+    font-size: 14.4px;
     font-weight: 700;
     line-height: 1.13;
     color: #11100D;
   }
   .lead-col p {
-    font-size: 9.7px;
-    line-height: 1.22;
+    font-size: 9.5px;
+    line-height: 1.2;
     color: #292524;
   }
   .src-inline {
     color: #57534E;
     font-weight: 600;
-    font-size: 8.5px;
+    font-size: 8.4px;
   }
 
   /* Rows 2 & 3: 2x4 Unboxed Feature Columns */
   .feat-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 7px 10px;
-    padding-bottom: 5px;
+    gap: 6px 10px;
+    padding-bottom: 4px;
     border-bottom: 2px solid #1A1713;
   }
   .feat-col {
     display: flex;
     flex-direction: column;
-    gap: 2.5px;
+    gap: 2px;
     border-right: 1px solid #DFD7C8;
     padding-right: 8px;
   }
@@ -835,14 +994,14 @@ const HTML = `<!DOCTYPE html>
   }
   .feat-col h3 {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 11.7px;
+    font-size: 11.5px;
     font-weight: 700;
     line-height: 1.13;
     color: #11100D;
   }
   .feat-col p {
-    font-size: 8.6px;
-    line-height: 1.18;
+    font-size: 8.5px;
+    line-height: 1.17;
     color: #292524;
   }
 
@@ -857,7 +1016,7 @@ const HTML = `<!DOCTYPE html>
   .left-rail {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3.5px;
   }
   .sec-hdr {
     display: flex;
@@ -867,51 +1026,50 @@ const HTML = `<!DOCTYPE html>
     padding-bottom: 1.5px;
   }
   .sec-title {
-    font-size: 9.2px;
+    font-size: 9px;
     font-weight: 800;
     color: #8B1E1E;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.35px;
   }
   .sec-sub {
-    font-size: 7.6px;
+    font-size: 7.3px;
     color: #57534E;
     font-weight: 600;
   }
   .reg-legend {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px 4px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px 6px;
     padding: 2px 0;
     border-bottom: 1px solid #D8CFC0;
   }
   .leg-item {
     display: flex;
     align-items: center;
-    gap: 3px;
-    font-size: 7px;
+    gap: 3.5px;
+    font-size: 6.9px;
     font-weight: 700;
     color: #292524;
   }
   .leg-dot {
-    width: 6.5px;
-    height: 6.5px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     flex-shrink: 0;
   }
   .kpi-hdr {
-    font-size: 7.8px;
+    font-size: 7.6px;
     font-weight: 800;
     color: #8B1E1E;
-    letter-spacing: 0.45px;
+    letter-spacing: 0.4px;
     border-bottom: 1px solid #C8BFA9;
     padding-bottom: 1px;
-    margin-top: 2px;
   }
   .kpi-mini-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 4px 6px;
-    padding-top: 2px;
+    gap: 3px 5px;
+    padding-top: 1px;
   }
   .kpi-mini {
     border-left: 2.5px solid var(--kc);
@@ -919,14 +1077,14 @@ const HTML = `<!DOCTYPE html>
   }
   .kpi-mv {
     font-family: Georgia, serif;
-    font-size: 12px;
+    font-size: 11.4px;
     font-weight: 800;
     line-height: 1.02;
     color: #11100D;
   }
   .kpi-ml {
-    font-size: 6.8px;
-    line-height: 1.1;
+    font-size: 6.6px;
+    line-height: 1.08;
     color: #44403C;
   }
 
@@ -934,12 +1092,12 @@ const HTML = `<!DOCTYPE html>
   .briefs-area {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2.5px;
   }
   .brief-cols {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 11px;
     flex: 1;
   }
   .brief-list {
@@ -955,9 +1113,9 @@ const HTML = `<!DOCTYPE html>
     display: flex;
     align-items: center;
     gap: 4px;
-    font-size: 8.85px;
-    line-height: 1.18;
-    padding: 1.8px 0;
+    font-size: 8.65px;
+    line-height: 1.15;
+    padding: 1.5px 0;
     border-bottom: 1px dotted #DDD5C4;
   }
   .brief-row:last-child { border-bottom: none; }
@@ -969,7 +1127,7 @@ const HTML = `<!DOCTYPE html>
     height: 13px;
     border-radius: 2px;
     color: #FFFFFF;
-    font-size: 7.4px;
+    font-size: 7.3px;
     font-weight: 800;
     flex-shrink: 0;
   }
@@ -979,19 +1137,29 @@ const HTML = `<!DOCTYPE html>
     white-space: nowrap;
     overflow: hidden;
   }
+  .b-tag {
+    font-size: 6.2px;
+    font-weight: 800;
+    padding: 0 2.5px;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    background: #FFFDF8;
+    flex-shrink: 0;
+    letter-spacing: 0.2px;
+  }
   .b-src {
-    font-size: 7.4px;
+    font-size: 7.3px;
     font-weight: 700;
     color: #6B655D;
     flex-shrink: 0;
   }
   .fields-note {
-    font-size: 7.4px;
+    font-size: 7.3px;
     color: #57534E;
     background: #F2ECE0;
     border-left: 2.5px solid #8B1E1E;
-    padding: 2.5px 5px;
-    line-height: 1.2;
+    padding: 2px 5px;
+    line-height: 1.18;
   }
 
   /* Bottom Full-Width DATE CHECK */
@@ -1004,9 +1172,9 @@ const HTML = `<!DOCTYPE html>
   .dc-tag {
     background: #991B1B;
     color: #FFFFFF;
-    font-size: 8.2px;
+    font-size: 8px;
     font-weight: 800;
-    padding: 3px 8px;
+    padding: 2.5px 7px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1015,9 +1183,9 @@ const HTML = `<!DOCTYPE html>
     flex-shrink: 0;
   }
   .dc-text {
-    padding: 3px 7px;
-    font-size: 7.6px;
-    line-height: 1.22;
+    padding: 2.5px 7px;
+    font-size: 7.5px;
+    line-height: 1.2;
     color: #450A0A;
   }
 
@@ -1026,7 +1194,7 @@ const HTML = `<!DOCTYPE html>
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 7.4px;
+    font-size: 7.3px;
     color: #57534E;
   }
   .key-badges {
@@ -1035,7 +1203,7 @@ const HTML = `<!DOCTYPE html>
     gap: 7px;
   }
   .kb {
-    font-size: 6.8px;
+    font-size: 6.7px;
     font-weight: 800;
     padding: 0.5px 3.5px;
     border: 1px solid currentColor;
@@ -1047,12 +1215,12 @@ const HTML = `<!DOCTYPE html>
 <div class="page">
   <div class="top-kicker">
     <span class="k-left">THE WORLD IN ONE DAY · ONE PAGE</span>
-    <span class="k-right">36 STORIES · 9 REGIONS · 14 FIELDS · EVERY STORY FROM TUESDAY 24 NOVEMBER 2026</span>
+    <span class="k-right">38 STORIES · 10 REGIONS · 14 FIELDS · EVERY STORY FROM TUESDAY 24 NOVEMBER 2026</span>
   </div>
 
   <div class="masthead">
     <h1>Tuesday 24 November 2026</h1>
-    <div class="masthead-deck">China probes Shanghai chief · US jury convicts Huawei (10/12) · Sanofi $41bn buyout · England 5,258 heat deaths</div>
+    <div class="masthead-deck">China probes Shanghai chief · US jury convicts Huawei (10/12) · Sanofi $41bn buyout · Dow tops 50,000</div>
   </div>
 
   <div class="region-bar">
@@ -1102,12 +1270,12 @@ const HTML = `<!DOCTYPE html>
     <div class="left-rail">
       <div class="sec-hdr">
         <span class="sec-title">WHERE IT HAPPENED</span>
-        <span class="sec-sub">pins 1–11 match cards above</span>
+        <span class="sec-sub">pins 1–11 + regional anchors</span>
       </div>
       ${svgWorldMap()}
       <div class="reg-legend">
         ${REGIONS.map(
-          (r) => `<div class="leg-item"><span class="leg-dot" style="background:${REGION_COLORS[r.key]}"></span><span>${r.name === "SOUTH & SE ASIA" ? "S & SE Asia" : r.name === "LATIN AMERICA" ? "Lat. America" : r.name === "WORLD & SPACE" ? "World/Space" : r.name.charAt(0) + r.name.slice(1).toLowerCase()} ${r.count}</span></div>`
+          (r) => `<div class="leg-item"><span class="leg-dot" style="background:${REGION_COLORS[r.key]}"></span><span>${r.short} ${r.count}</span></div>`
         ).join("")}
       </div>
       <div class="kpi-hdr">KEY NUMBERS · TUESDAY 24 NOV</div>
@@ -1121,7 +1289,7 @@ const HTML = `<!DOCTYPE html>
     <div class="briefs-area">
       <div class="sec-hdr">
         <span class="sec-title">ALSO ON TUESDAY 24 NOVEMBER 2026</span>
-        <span class="sec-sub">25 additional verified dispatches (color-coded by region)</span>
+        <span class="sec-sub">27 additional verified dispatches (10 regions matched by color)</span>
       </div>
       <div class="brief-cols">
         <div class="brief-list">
@@ -1129,7 +1297,7 @@ const HTML = `<!DOCTYPE html>
         </div>
         <div class="brief-list">
           ${BRIEFS_COL2.map(renderBriefRow).join("")}
-          <div class="fields-note"><strong>14 Fields:</strong> Geopolitics, Courts, Tech, Pharma, Climate, War, Markets, Energy, Space, Sport, Aid, Trade, Disasters &amp; Science.</div>
+          <div class="fields-note"><strong>14 Fields:</strong> Geopolitics, Courts, Tech, Pharma, Climate, Conflict, Markets, Trade, Energy, Space, Sport, Aid, Disasters &amp; Science.</div>
         </div>
       </div>
     </div>
@@ -1144,9 +1312,10 @@ const HTML = `<!DOCTYPE html>
     <div class="key-badges">
       <span><span class="kb" style="color:#1D4ED8">CONFIRMED</span> 2+ outlets</span>
       <span><span class="kb" style="color:#0F766E">OFFICIAL</span> on the record</span>
+      <span><span class="kb" style="color:#475569">REPORTED</span> single wire/local</span>
       <span><span class="kb" style="color:#C2410C">CLAIM</span> one side's account</span>
     </div>
-    <span>Sources: AP, Reuters, AFP, Guardian, Al Jazeera, WashPost, Xinhua, ESA, UNODC, UKHSA, Focus Taiwan, FIDE, WFP, ICC, Sanofi · Original vector drawings &amp; map</span>
+    <span>Sources: AP, Reuters, AFP, Guardian, Al Jazeera, WashPost, Xinhua, ESA, UNODC, UKHSA, Focus Taiwan, FIDE, UEFA, ICC, Sanofi · Original vector drawings &amp; map</span>
   </div>
 </div>
 </body>

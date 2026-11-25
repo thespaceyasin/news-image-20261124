@@ -4,7 +4,7 @@
 [![Rank](https://make.fun/badge/news-image-20261124/thespaceyasin/news-image-20261124/rank.svg)](https://make.fun/bounty/news-image-20261124/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261124)
 [![Reward](https://make.fun/badge/news-image-20261124/thespaceyasin/news-image-20261124/reward.svg)](https://make.fun/bounty/news-image-20261124?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261124)
 
-Single-image archival broadsheet summarizing **36 verified world news stories** from **Tuesday, 24 November 2026** across 9 regions and 14 categories, designed for crisp legibility at both `1024×1024` full resolution and `300×300` preview scale.
+Single-image archival broadsheet summarizing **38 verified world news stories** from **Tuesday, 24 November 2026** across 10 regions and 14 categories, designed for crisp legibility at both `1024×1024` full resolution and `300×300` preview scale.
 
 Built for the `news-image-20261124` bounty on [make.fun](https://make.fun/?ref=4dhdkr5y&utm_source=github&utm_medium=readme&utm_campaign=news-image-20261124).
 
